@@ -17,14 +17,16 @@ export function renderGens({ generations, onFerment }) {
   gens
     .select('.substrates')
     .selectAll('.substrate')
-    .data(accessor('substrates'), accessor('identity'))
+    .data(accessor('substrates'))
     .join('li')
+    .classed('substrate', true)
     .text(accessor('identity'));
   gens
     .select('.enzymes')
     .selectAll('.enzyme')
-    .data(accessor('enzymes'), accessor('identity'))
+    .data(accessor('enzymes'))
     .join('li')
+    .classed('enzyme', true)
     .text(accessor('identity'));
 
   function onClickFerment(generation) {

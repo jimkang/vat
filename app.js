@@ -13,7 +13,7 @@ var controlsWired = false;
 
 var generations = [
   {
-    id: 'a',
+    id: 0,
     substrates: [
       'the',
       'quick',
