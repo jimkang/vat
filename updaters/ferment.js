@@ -3,6 +3,7 @@ import request from 'basic-browser-request';
 import bodyMover from 'request-body-mover';
 import cloneDeep from 'lodash.clonedeep';
 import math from 'basic-2d-math';
+import { w2vResultIsOk } from './w2v-result-is-ok';
 
 const w2vBaseURL = 'http://localhost:9666/';
 
@@ -55,7 +56,7 @@ export function ferment({ generation, probable }, done) {
 
         if (enzyme.action === 'add') {
           var result = probable.pick(pack.results);
-          if (result.word) {
+          if (result && result.word) {
             substrates[pack.substIndex].word = result.word;
           }
         } else if (enzyme.action === 'break') {
@@ -114,7 +115,10 @@ function getSums(index, wordA, wordB, done) {
       done(error);
       return;
     }
-    done(null, { substIndex: index, results });
+    done(null, {
+      substIndex: index,
+      results: results.filter((result) => w2vResultIsOk(result.word)),
+    });
   }
 }
 

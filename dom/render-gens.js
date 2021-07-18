@@ -39,7 +39,7 @@ export function renderGens({ generations, onFerment }) {
     .merge(subSel)
     .attr('transform', getTransform)
     .select('text')
-    .text(accessor('word'));
+    .text(getWord);
 
   var enzSel = gens
     .select('.enzymes')
@@ -75,4 +75,8 @@ function onDrag(event, d) {
 
 function getTransform(d) {
   return `translate(${d.pos[0]}, ${d.pos[1]})`;
+}
+
+function getWord(result) {
+  return result.word.replace(/_/g, ' ');
 }

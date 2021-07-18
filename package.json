@@ -52,6 +52,7 @@
     "errorback-promise": "^1.0.0",
     "get-at-path": "^1.0.1",
     "handle-error-web": "^1.0.1",
+    "iscool": "^2.0.1",
     "lodash.clonedeep": "^4.5.0",
     "lodash.throttle": "^4.1.1",
     "oknok": "^3.0.0",
