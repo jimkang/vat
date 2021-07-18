@@ -6,7 +6,7 @@ import math from 'basic-2d-math';
 
 const w2vBaseURL = 'http://localhost:9666/';
 
-var inertSubstrates = ['the', 'a', 'an', 'but', 'and'];
+var inertSubstrates = ['the', 'a', 'an', 'but', 'and', 'to'];
 
 export function ferment({ generation, probable }, done) {
   var substrates = cloneDeep(generation.substrates);

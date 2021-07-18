@@ -62,6 +62,7 @@
     "sanitize-html": "^1.27.5",
     "seedrandom": "^3.0.5",
     "soundbank-reverb": "^1.1.2",
+    "split-to-words": "^2.0.0",
     "strokerouter": "^2.0.0"
   }
 }
