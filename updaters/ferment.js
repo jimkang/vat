@@ -6,6 +6,8 @@ import cloneDeep from 'lodash.clonedeep';
 
 const w2vBaseURL = 'http://localhost:9666/';
 
+var inertSubstrates = ['the', 'a', 'an', 'but', 'and'];
+
 export function ferment({ generation, probable }, done) {
   var enzymes = probable.shuffle(generation.enzymes);
   var targetSubstrateIndexes = probable
@@ -39,13 +41,24 @@ export function ferment({ generation, probable }, done) {
     };
     done(null, nextGen);
 
-    function updateFromResults(results) {
-      substrates[results.substIndex] = probable.pick(results).word;
+    function updateFromResults(pack) {
+      var result = probable.pick(pack.results);
+      if (result.word) {
+        substrates[pack.substIndex] = result.word;
+      }
     }
   }
 }
 
 function getSums(index, substrate, enzyme, done) {
+  if (inertSubstrates.includes(substrate)) {
+    setTimeout(done, 0, null, {
+      substIndex: index,
+      results: [{ word: substrate, distance: 0 }],
+    });
+    return;
+  }
+
   const url = `${w2vBaseURL}/neighbors?words=${substrate},${enzyme}&quantity=10&operation=add`;
   request({ method: 'GET', url, json: true }, bodyMover(wrapResults));
 
@@ -54,7 +67,6 @@ function getSums(index, substrate, enzyme, done) {
       done(error);
       return;
     }
-    results.substIndex = index;
-    done(null, results);
+    done(null, { substIndex: index, results });
   }
 }

@@ -1,5 +1,4 @@
 import RouteState from 'route-state';
-import wireControls from './dom/wire-controls';
 import handleError from 'handle-error-web';
 import { renderGens } from './dom/render-gens';
 import { version } from './package.json';
@@ -7,9 +6,11 @@ import { ferment } from './updaters/ferment';
 import { createProbable } from 'probable';
 import ep from 'errorback-promise';
 import seedrandom from 'seedrandom';
+import RandomId from '@jimkang/randomid';
+
+var randomid = RandomId();
 
 var routeState;
-var controlsWired = false;
 
 var generations = [
   {
@@ -44,24 +45,13 @@ var generations = [
 
 function followRoute({ seed }) {
   if (!seed) {
-    //seed = randomid(8);
+    seed = randomid(8);
     routeState.updateEphemeralState({ seed }, false);
   }
   console.log('Seed:', seed);
   var probable = createProbable({ random: seedrandom(seed) });
 
   renderGens({ generations, onFerment });
-
-  if (controlsWired) {
-    onStart();
-  } else {
-    wireControls({ onStart });
-    controlsWired = true;
-  }
-
-  function onStart() {
-    console.log('Hey');
-  }
 
   async function onFerment(generation) {
     var { error, values } = await ep(ferment, { generation, probable });

@@ -7,8 +7,8 @@ export function renderGens({ generations, onFerment }) {
     .data(generations, accessor());
   allGensSel.exit().remove();
   var newGens = allGensSel.enter().append('li').classed('generation', true);
-  newGens.append('ul').classed('substrates', true);
-  newGens.append('ul').classed('enzymes', true);
+  newGens.append('p').classed('substrates', true);
+  newGens.append('p').classed('enzymes', true);
   newGens
     .append('button')
     .text('Ferment next generation')
@@ -18,14 +18,14 @@ export function renderGens({ generations, onFerment }) {
     .select('.substrates')
     .selectAll('.substrate')
     .data(accessor('substrates'))
-    .join('li')
+    .join('span')
     .classed('substrate', true)
     .text(accessor('identity'));
   gens
     .select('.enzymes')
     .selectAll('.enzyme')
     .data(accessor('enzymes'))
-    .join('li')
+    .join('span')
     .classed('enzyme', true)
     .text(accessor('identity'));
 
