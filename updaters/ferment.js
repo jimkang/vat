@@ -5,7 +5,8 @@ import cloneDeep from 'lodash.clonedeep';
 import math from 'basic-2d-math';
 import { w2vResultIsOk } from './w2v-result-is-ok';
 
-const w2vBaseURL = 'http://localhost:9666/';
+//const w2vBaseURL = 'http://localhost:9666/';
+const w2vBaseURL = 'http://ghostcrab.io:9666';
 
 var inertSubstrates = ['the', 'a', 'an', 'but', 'and', 'to'];
 

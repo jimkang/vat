@@ -10,6 +10,8 @@ var iscool = IsCool();
 export function w2vResultIsOk(s) {
   return (
     s.length > 0 &&
+    !s.includes('.') &&
+    !s.includes('#') &&
     !s.match(uppercaseRegex) &&
     !badPhraseStarts.some(startsWith) &&
     !badPhraseEnds.some(endsWith) &&
